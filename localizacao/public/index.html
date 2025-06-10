@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Dispositivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="selection-screen">
+        <h1>Selecione o tipo de dispositivo:</h1>
+        <button onclick="selectDevice('mobile')">Celular</button>
+        <button onclick="selectDevice('pc')">PC</button>
+    </div>
+    <div id="mobile-screen" class="hidden">
+        <h1>Modo Corrida</h1>
+        <p id="lives">Vidas: 3</p>
+        <canvas id="myCanvas"></canvas>
+        <p id="status">Aguardando dados...</p>
+        <button onclick="showSelectionScreen()">Voltar</button>
+    </div>
+    <div id="pc-screen" class="hidden">
+        <h1>Modo PC</h1>
+        <p id="device-count">Dispositivos conectados: 0</p>
+        <canvas id="myCanvas"></canvas>
+        <p id="status">Aguardando dados dos dispositivos...</p>
+        <button onclick="showSelectionScreen()">Voltar</button>
+    </div>
+</body>
+</html>

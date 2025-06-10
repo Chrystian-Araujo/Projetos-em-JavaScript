@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Adventure - Criação de Personagem</title>
+    <link rel="stylesheet" href="char_create.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <h1>CRIAÇÃO DE PERSONAGEM</h1>
+        
+        <div class="panel" id="character-preview">
+            <h2>Prévia do Herói</h2>
+            <div id="character-art"></div>
+            <div id="character-stats"></div>
+        </div>
+
+        <div class="panel" id="character-creation">
+            <h2>Personalize seu Herói</h2>
+            <div class="creation-form">
+                <label for="char-name">Nome:</label>
+                <input type="text" id="char-name" maxlength="15" placeholder="Digite o nome" pattern="[A-Za-zÀ-ÿ0-9]+" title="Apenas letras (com ou sem acentos) e números">
+
+                <label for="char-race">Raça:</label>
+                <select id="char-race">
+                    <option value="human">Humano</option>
+                    <option value="elf">Elfo</option>
+                    <option value="dwarf">Anão</option>
+                    <option value="ogre">Ogro</option>
+                </select>
+
+                <div class="panel" id="subclass-info">
+                    <h3>Subclasses Disponíveis:</h3>
+                    <div id="subclass-info-content"></div>
+                </div>
+
+                <div class="attributes">
+                    <h3>Atributos</h3>
+                    <div class="attribute">
+                        <span>Força:</span>
+                        <span id="strength-value">5</span>
+                        <button class="attr-btn" data-attr="strength" data-action="increase">+</button>
+                        <button class="attr-btn" data-attr="strength" data-action="decrease">-</button>
+                    </div>
+                    <div class="attribute">
+                        <span>Agilidade:</span>
+                        <span id="agility-value">5</span>
+                        <button class="attr-btn" data-attr="agility" data-action="increase">+</button>
+                        <button class="attr-btn" data-attr="agility" data-action="decrease">-</button>
+                    </div>
+                    <div class="attribute">
+                        <span>Vitalidade:</span>
+                        <span id="vitality-value">5</span>
+                        <button class="attr-btn" data-attr="vitality" data-action="increase">+</button>
+                        <button class="attr-btn" data-attr="vitality" data-action="decrease">-</button>
+                    </div>
+                    <div class="points">
+                        <span>Pontos Restantes:</span>
+                        <span id="points-remaining">10</span>
+                    </div>
+                </div>
+                <button id="randomize-btn">Randomizar</button>
+            </div>
+            <div class="buttons">
+                <button id="confirm-btn" disabled>Confirmar</button>
+                <button id="return-btn">Voltar</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Registro de Eventos</h2>
+            <div id="message-log"></div>
+        </div>
+    </div>
+
+    <script src="char_create.js"></script>
+</body>
+</html>

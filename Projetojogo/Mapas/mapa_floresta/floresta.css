@@ -1,0 +1,715 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #1a1a1a;
+    background-position: center;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+#game-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 4px solid #444;
+    padding: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+
+h1 {
+    color: #ff9a00;
+    text-align: center;
+    font-size: 28px;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+}
+
+h2 {
+    color: #ff9a00;
+    border-bottom: 2px solid #444;
+    padding-bottom: 5px;
+}
+
+.panel {
+    background-color: #121212;
+    border: 4px solid #444;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+button {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 4px solid #ff9a00;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 0 4px #000 inset;
+}
+
+button:hover {
+    background-color: #ff9a00;
+    color: #0d0d0d;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background-color: #222;
+    cursor: not-allowed;
+    border-color: #555;
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+#character-art {
+    text-align: center;
+    font-size: 18px;
+    white-space: pre;
+    margin: 10px 0;
+    color: #ffaa00;
+}
+
+#character-stats {
+    text-align: center;
+    font-size: 12px;
+}
+
+#forest-map {
+    position: relative;
+    width: 960px;
+    height: 640px;
+    border: 4px solid #444;
+    background-color: #0a0a0a;
+    margin: 0 auto;
+    overflow: hidden;
+    background-image: 
+        linear-gradient(#111 1px, transparent 1px),
+        linear-gradient(90deg, #111 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+#map-canvas {
+    image-rendering: pixelated;
+    width: 960px;
+    height: 640px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: brightness(0.7) saturate(0.6); /* Reduz brilho e saturação para suavizar o verde */
+    transition: filter 1s ease; /* Transição suave para mudanças */
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 640px;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.3); /* Sobreposição cinza escuro leve para equilibrar */
+    z-index: 1; /* Abaixo dos personagens e inimigos */
+    display: none; /* Inicialmente escondido, pode ser ativado no ciclo dia/noite */
+}
+
+.character {
+    position: absolute;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    line-height: 1;
+    transition: top 0.3s ease-out, left 0.3s ease-out;
+    font-size: 16px;
+    z-index: 5;
+}
+
+.enemy { color: #ff5555; }
+.potion { color: #55ff55; }
+.treasure { color: #ffaa00; }
+.trap { color: #ff00ff; }
+
+#message-log {
+    height: 120px;
+    overflow-y: auto;
+    border: 2px solid #444;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #0a0a0a;
+    font-size: 10px;
+}
+
+.npc {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    z-index: 5;
+    animation: npc-float 2s infinite ease-in-out;
+}
+
+.npc-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.npc-text-box::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+}
+
+#dialogue-box {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 4px solid #ff9a00;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(255, 154, 0, 0.5);
+    border-radius: 8px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#dialogue-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ff9a00;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#dialogue-text {
+    min-height: 40px;
+    overflow: hidden;
+    line-height: 1.5;
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+#dialogue-portrait {
+    float: left;
+    margin-right: 15px;
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    border: 2px solid #ff9a00;
+}
+
+#dialogue-options {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.dialogue-option:hover {
+    background: #ff9a00;
+    color: #000;
+}
+
+.dialogue-option {
+    display: inline-block;
+    margin-left: 15px;
+    padding: 5px 10px;
+    background: #333;
+    cursor: pointer;
+    font-size: 10px;
+    border: 2px solid #ff9a00;
+    transition: all 0.3s;
+}
+
+#option-yes, #option-no {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.2); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+@keyframes floatPulse {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1);
+        box-shadow: 0 0 10px rgba(255, 154, 0, 0.5);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-5px) scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 154, 0, 0.8);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0) scale(1);
+        box-shadow: 0 0 10px rgba(255, 154, 0, 0.5);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.h-interaction.dialogue {
+    animation: bounce 0.8s infinite, glow 1s infinite alternate;
+    background-color: rgba(255, 154, 0, 0.2);
+    border-color: #55ff55;
+    color: white;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(85, 255, 85, 0.5);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(85, 255, 85, 1);
+    }
+}
+
+#return-btn {
+    background-color: #8b5a2b;
+    margin-top: 10px;
+}
+
+#return-btn:hover {
+    background-color: #a66d3b;
+}
+
+.mission-alert {
+    position: absolute;
+    top: -40px;
+    transform: translateX(-50%);
+    background-color: #ff9a00;
+    color: #000;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    animation: bounceIn 0.5s, pulse 1.5s infinite;
+    z-index: 10;
+    box-shadow: 0 0 10px #ff9a00;
+}
+
+#mission-panel {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff9a00;
+    padding: 10px;
+    font-size: 10px;
+    max-width: 200px;
+}
+
+#mission-panel h3 {
+    margin: 0 0 5px 0;
+    color: #ff9a00;
+    font-size: 12px;
+}
+
+#missions-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#missions-list li {
+    margin: 5px 0;
+    padding: 3px;
+}
+
+#missions-list li.completed {
+    color: #55ff55;
+    text-decoration: line-through;
+}
+
+#toggle-missions {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 101;
+    background-color: #ff9a00;
+    color: #000;
+    border: none;
+    padding: 5px;
+    font-size: 10px;
+}
+
+.npc::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #ff9a00;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.npc.interactable::after {
+    opacity: 1;
+    animation: arrowPulse 1.5s infinite;
+}
+
+@keyframes arrowPulse {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.character.enemy {
+    color: #ff5555;
+    z-index: 5;
+}
+
+@keyframes npc-float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+.h-interaction {
+    position: absolute;
+    top: -40px;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #55ff55;
+    border: 2px solid #ff9a00;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+    z-index: 10;
+    animation: pulse 1s infinite;
+}
+
+.enemy-hitbox {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ff5555;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    display: none;
+    z-index: 4;
+}
+
+.attacking {
+    animation: attackAnimation 0.3s;
+}
+
+@keyframes attackAnimation {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+.took-damage {
+    animation: damageAnimation 0.5s;
+}
+
+@keyframes damageAnimation {
+    0% { color: #ff5555; }
+    50% { color: #ffffff; }
+    100% { color: #ff5555; }
+}
+
+.enemy-attacking {
+    animation: enemyAttackAnimation 0.3s;
+    color: #ff0000 !important;
+}
+
+@keyframes enemyAttackAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.character.took-damage {
+    animation: playerDamageAnimation 0.5s;
+}
+
+@keyframes playerDamageAnimation {
+    0% { color: #ff5555; }
+    50% { color: #ffffff; }
+    100% { color: #ffaa00; }
+}
+
+.reward-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 3px solid #55ff55;
+    padding: 15px;
+    z-index: 1000;
+    text-align: center;
+    animation: bounceIn 0.5s;
+    width: 200px;
+    transition: opacity 0.5s ease;
+}
+
+.reward-popup p {
+    font-size: 10px;
+}
+
+#game-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 4px solid #ff9a00;
+    padding: 20px;
+    z-index: 2000;
+    width: 300px;
+    text-align: center;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#game-menu button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.inventory-slot {
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 24px;
+}
+
+.inventory-slot:hover {
+    border-color: #ff9a00;
+    transform: scale(1.05);
+}
+
+.item-count {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 10px;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#inventory-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 4px solid #ff9a00;
+    padding: 20px;
+    z-index: 2001;
+    width: 350px;
+    text-align: center;
+}
+
+#chest-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 4px solid #ff9a00;
+    padding: 20px;
+    z-index: 2001;
+    width: 350px;
+    text-align: center;
+}
+
+#chest-slots .inventory-slot.selected {
+    border-color: #55ff55;
+}
+
+#chest-item-info {
+    background-color: #1a1a1a;
+    border: 2px solid #444;
+    padding: 5px;
+    color: #e0e0e0;
+}
+
+#chest-menu button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.chest {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    z-index: 5;
+    animation: npc-float 2s infinite ease-in-out;
+}
+
+.chest-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.chest .h-interaction {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #55ff55;
+    border: 2px solid #ff9a00;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+    z-index: 10;
+    animation: pulse 1s infinite;
+}
+
+.status-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.status-label {
+    font-size: 8px;
+    color: #ff9a00;
+    width: 30px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.bar-container {
+    width: 150px;
+    height: 10px;
+    background-color: #333;
+    border: 2px solid #ff9a00;
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+#skills-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 4px solid #ff9a00;
+    padding: 20px;
+    z-index: 2001;
+    width: 350px;
+    text-align: center;
+}
+
+#skills-list {
+    margin: 15px 0;
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+#subclass-selection {
+    margin: 15px 0;
+}
+
+#subclass-selection h3 {
+    color: #ff9a00;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#subclass-monge, #subclass-lutador {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.subclass-options {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subclass-options button {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 4px solid #ff9a00;
+    padding: 8px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.subclass-options button:hover {
+    background-color: #ff9a00;
+    color: #0d0d0d;
+    transform: scale(1.05);
+}
+
+#cooldown-display {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    font-size: 10px;
+    color: #ff9a00;
+    font-family: 'Press Start 2P', cursive;
+    white-space: pre-line;
+    z-index: 10;
+}

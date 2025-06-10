@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Adventure - Floresta</title>
+    <link rel="stylesheet" href="floresta.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <h1>ASCII ADVENTURE - FLORESTA</h1>
+        
+        <div class="panel" id="character-display">
+            <h2>Seu Herói</h2>
+            <div id="character-art"></div>
+            <div id="character-stats"></div>
+        </div>
+
+        <div class="panel" id="map-area">
+            <h2>Mapa da Floresta</h2>
+            <div id="forest-map" style="position: relative; width: 960px; height: 640px; margin: 0 auto; overflow: hidden;">
+                <canvas id="map-canvas" width="960" height="640" style="position: absolute; top: 0; left: 0;"></canvas>
+                <div id="status-bars" style="position: absolute; bottom: 10px; left: 10px; z-index: 10;">
+                    <div class="status-bar">
+                        <span class="status-label">HP</span>
+                        <div class="bar-container">
+                            <div id="hp-bar" class="bar-fill" style="width: 100%; background-color: #ff5555;"></div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <span class="status-label">STM</span>
+                        <div class="bar-container">
+                            <div id="stamina-bar" class="bar-fill" style="width: 100%; background-color: #55ff55;"></div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <span class="status-label">XP</span>
+                        <div class="bar-container">
+                            <div id="xp-bar" class="bar-fill" style="width: 0%; background-color: #ff9a00;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cooldown-display" style="position: absolute; top: 30px; left: 10px; font-size: 10px; color: #ff9a00; z-index: 10;"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Registro de Eventos</h2>
+            <div id="message-log"></div>
+        </div>
+    </div>
+
+    <script src="floresta.js"></script>
+</body>
+</html>

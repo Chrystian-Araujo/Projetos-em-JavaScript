@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <title>Quiz Interativo</title>
+    <link rel="stylesheet" href="game.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1 class="quiz-title">QUIZ INTERATIVO</h1>
+            <p class="controls-info">Use as setas ←↑↓→ para mover</p>
+        </div>
+
+        <div class="game-main">
+            <div class="game-area">
+                <div class="canvas-wrapper">
+                    <div class="corner-labels">
+                        <div class="corner-label top-left">A</div>
+                        <div class="corner-label top-right">B</div>
+                        <div class="corner-label bottom-left">C</div>
+                        <div class="corner-label bottom-right">D</div>
+                    </div>
+                    <canvas id="gameCanvas"></canvas>
+                    <img id="eliminationGif" src="eliminated.gif" alt="Elimination Animation" style="display: none;">
+                </div>
+
+                <div id="livesContainer" class="lives-container"></div>
+
+                <div class="question-area">
+                    <h2 id="questionText">Aguardando pergunta...</h2>
+                    <div class="timer-container">
+                        <p id="timer">Preparando jogo...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="leaderboard">
+                    <h3>Ranking</h3>
+                    <ul id="leaderboardList"></ul>
+                </div>
+
+                <div class="game-info">
+                    <h4>Áreas de Resposta:</h4>
+                    <div class="area-legend">
+                        <div class="legend-item"><span class="legend-color" style="background-color: #EE4B6A;"></span>Canto Superior Esquerdo - A</div>
+                        <div class="legend-item"><span class="legend-color" style="background-color: #7DC95E;"></span>Canto Superior Direito - B</div>
+                        <div class="legend-item"><span class="legend-color" style="background-color: #50B2C0;"></span>Canto Inferior Esquerdo - C</div>
+                        <div class="legend-item"><span class="legend-color" style="background-color: #FF9914;"></span>Canto Inferior Direito - D</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminControls" class="admin-panel" style="display: none;">
+        <h3>Controles do Administrador</h3>
+        <button id="pauseResumeBtn">Pausar</button>
+        <button id="skipQuestionBtn">Pular Pergunta</button>
+        <button id="previousQuestionBtn">Pergunta Anterior</button>
+        <div>
+            <h4>Editar Pergunta</h4>
+            <label for="editQuestionIndex">Índice da Pergunta:</label>
+            <input type="number" id="editQuestionIndex" min="0">
+            <label for="editQuestionText">Texto da Pergunta:</label>
+            <input type="text" id="editQuestionText">
+            <label for="editOptionA">Opção A:</label>
+            <input type="text" id="editOptionA">
+            <label for="editOptionB">Opção B:</label>
+            <input type="text" id="editOptionB">
+            <label for="editOptionC">Opção C:</label>
+            <input type="text" id="editOptionC">
+            <label for="editOptionD">Opção D:</label>
+            <input type="text" id="editOptionD">
+            <label for="editCorrectAnswer">Resposta Correta:</label>
+            <select id="editCorrectAnswer">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select>
+            <button id="editQuestionBtn">Salvar Pergunta</button>
+        </div>
+    </div>
+
+    <audio id="correctSound" src="correct.mp3"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3"></audio>
+    <audio id="eliminationSound" src="eliminated.mp3"></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

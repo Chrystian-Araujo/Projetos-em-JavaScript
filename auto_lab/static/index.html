@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Automação de Codificação</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>💬 Sistema de Automação de Codificação</h1>
+    <div class="container">
+        <div class="panel left-panel">
+            <h2>Chat</h2>
+            <div class="chat-container">
+                <div class="chat-display" id="chat-display">
+                    <p>Bem-vindo! Digite um comando, ex.: "tela azul"</p>
+                </div>
+                <div class="command-row">
+                    <input type="text" id="command-input" placeholder="Digite seu comando...">
+                    <button onclick="sendCommand()">Enviar</button>
+                </div>
+            </div>
+            
+            <div class="controls-section">
+                <h3>🔧 Controles Auto Lab</h3>
+                <div class="control-row">
+                    <label for="template-select">Template:</label>
+                    <select id="template-select">
+                        <option value="">Carregando...</option>
+                    </select>
+                </div>
+                <button onclick="runAutoLab()" class="auto-lab-btn">🚀 Executar Auto Lab</button>
+            </div>
+        </div>
+
+        <div class="panel center-panel">
+            <h2>🖼️ Room</h2>
+            <div class="room-controls">
+                <div class="control-row">
+                    <label for="saved-files-select">Arquivos Salvos:</label>
+                    <select id="saved-files-select">
+                        <option value="">Selecione um arquivo...</option>
+                    </select>
+                    <button onclick="loadSelectedFile()" class="load-btn">📂 Carregar</button>
+                </div>
+                
+                <div class="merge-section">
+                    <h4>🔀 Mesclar Templates</h4>
+                    <div class="merge-controls">
+                        <div class="control-row">
+                            <label for="merge-template-select">Adicionar Template:</label>
+                            <select id="merge-template-select">
+                                <option value="">Selecione...</option>
+                            </select>
+                        </div>
+                        <div class="control-row">
+                            <label for="merge-color-select">Cor:</label>
+                            <select id="merge-color-select">
+                                <option value="">Selecione...</option>
+                            </select>
+                        </div>
+                        <button onclick="mergeTemplate()" class="merge-btn">➕ Adicionar Elemento</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="current-file-info" id="current-file-info">
+                <span>Nenhum arquivo carregado</span>
+            </div>
+            
+            <iframe id="iframe" name="room" srcdoc="<p style='text-align:center; padding: 50px; font-family: Arial;'>Aguardando comando...</p>"></iframe>
+        </div>
+
+        <div class="panel right-panel">
+            <h2>📂 Comandos Salvos</h2>
+            <div class="saved-commands-header">
+                <button onclick="loadSavedFiles()" class="refresh-btn">🔄 Atualizar</button>
+                <button onclick="clearSavedCommands()" class="clear-btn">🗑️ Limpar</button>
+            </div>
+            <div id="saved-commands">
+                <p>Seus comandos salvos aparecerão aqui.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

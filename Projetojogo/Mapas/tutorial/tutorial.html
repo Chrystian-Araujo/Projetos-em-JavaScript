@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Adventure - Tutorial Expandido</title>
+    <link rel="stylesheet" href="tutorial.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <h1>ASCII ADVENTURE - TUTORIAL</h1>
+        
+        <div class="panel" id="character-display">
+            <h2>Seu Herói</h2>
+            <div id="character-art"></div>
+            <div id="character-stats"></div>
+        </div>
+
+        <div class="panel" id="practice-area" style="display: block;">
+            <h2>Área de Treinamento</h2>
+            <div id="practice-map">
+                <!-- Mover as barras de status para dentro do practice-map -->
+                <div id="status-bars" style="position: absolute; bottom: 10px; left: 10px; z-index: 10;">
+                    <div class="status-bar">
+                        <span class="status-label">HP</span>
+                        <div class="bar-container">
+                            <div id="hp-bar" class="bar-fill" style="width: 100%; background-color: #ff5555;"></div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <span class="status-label">STM</span>
+                        <div class="bar-container">
+                            <div id="stamina-bar" class="bar-fill" style="width: 100%; background-color: #55ff55;"></div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <span class="status-label">XP</span>
+                        <div class="bar-container">
+                            <div id="xp-bar" class="bar-fill" style="width: 0%; background-color: #ff9a00;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Adicionando o cooldown-display diretamente no practice-map -->
+                <div id="cooldown-display" style="position: absolute; top: 30px; left: 10px; font-size: 10px; color: #ff9a00; z-index: 10;"></div>
+                <!-- Movendo dialogue-box para dentro do practice-map -->
+                <div id="dialogue-box" style="display: none;">
+                    <div id="dialogue-name">CHRYSTIAN</div>
+                    <div id="dialogue-text"></div>
+                    <div id="dialogue-options" style="display: none;">
+                        <span class="dialogue-option" id="option-yes">[S] SIM</span>
+                        <span class="dialogue-option" id="option-no">[N] NÃO</span>
+                    </div>
+                </div>
+            </div>
+            <button id="start-btn" disabled>Partir para a Aventura</button>
+            <button id="return-btn">Voltar à Tela Inicial</button>
+        </div>
+
+        <div class="panel">
+            <h2>Registro de Eventos</h2>
+            <div id="message-log"></div>
+        </div>
+
+        <div id="chest-menu" style="display: none;">
+            <div class="menu-content">
+                <h2 style="font-size: 24px; color: #ff9a00; margin-bottom: 15px;">BAÚ</h2>
+                <div id="chest-slots" class="inventory-grid"></div>
+                <div id="chest-item-info" style="min-height: 50px; margin: 15px 0; font-size: 12px; color: #ffffff;"></div>
+                <button id="close-chest">Fechar (E)</button>
+            </div>
+        </div>
+
+        <div id="game-menu" style="display: none;">
+            <div class="menu-content">
+                <h2>MENU</h2>
+                <button id="menu-inventory">Inventário (I)</button>
+                <div id="inventory-menu" style="display: none;">
+                    <h2>INVENTÁRIO</h2>
+                    <div id="inventory-slots" class="inventory-grid"></div>
+                    <button id="close-inventory">Fechar (I)</button>
+                </div>
+                <button id="menu-skills">Habilidades (H)</button>
+                <div id="skills-menu" style="display: none;">
+                    <h2>HABILIDADES</h2>
+                    <div id="skills-list"></div>
+                    <button id="close-skills">Fechar (H)</button>
+                </div>
+                <button id="menu-missions">Missões</button>
+                <button id="menu-map">Mapa</button>
+                <button id="menu-close">Fechar (M)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="tutorial.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'937fe8d56c3bd6af',t:'MTc0NTk0MTM0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,478 @@
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.game-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header do jogo */
+.game-header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.quiz-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2.5em;
+    color: #FFD700;
+    text-shadow: 3px 3px 0 #FF6B6B, -2px -2px 0 #4ECDC4;
+    margin-bottom: 10px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 3px 3px 0 #FF6B6B, -2px -2px 0 #4ECDC4, 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        text-shadow: 3px 3px 0 #FF6B6B, -2px -2px 0 #4ECDC4, 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.controls-info {
+    font-size: 1.1em;
+    color: #E0E0E0;
+    margin-top: 10px;
+}
+
+/* Layout principal */
+.game-main {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Container de vidas */
+.lives-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.heart {
+    transition: color 0.3s ease;
+}
+
+.heart-active {
+    animation: heartbeat 0.5s ease-in-out;
+}
+
+@keyframes heart-lost {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.lives-container.heart-lost .heart {
+    animation: heart-lost 0.5s ease-in-out;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Estilo do GIF de eliminação */
+#eliminationSvg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Canvas e wrapper */
+.canvas-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid #FFD700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+#gameCanvas {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background: #2c2c2c;
+}
+
+/* Labels dos cantos */
+.corner-labels {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    pointer-events: none;
+}
+
+.corner-label {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border: 3px solid #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.corner-label.top-left {
+    top: 10px;
+    left: 10px;
+}
+
+.corner-label.top-right {
+    top: 10px;
+    right: 10px;
+}
+
+.corner-label.bottom-left {
+    bottom: 10px;
+    left: 10px;
+}
+
+.corner-label.bottom-right {
+    bottom: 10px;
+    right: 10px;
+}
+
+/* Área da pergunta */
+.question-area {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.question-area h2 {
+    font-size: 1.6em;
+    color: #FFD700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.5);
+    line-height: 1.4;
+}
+
+.timer-container {
+    margin-top: 15px;
+}
+
+.timer-container p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #4ECDC4;
+    text-shadow: 1px 1px 3px rgba(78, 205, 196, 0.5);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.leaderboard {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.leaderboard h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.3em;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.5);
+}
+
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard li {
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.leaderboard li:hover {
+    transform: translateX(5px);
+}
+
+/* Informações do jogo */
+.game-info {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.game-info h4 {
+    color: #FFD700;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.area-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.legend-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(3px);
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    margin-right: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Estilos do painel de admin */
+.admin-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 300px;
+}
+
+.admin-panel h3 {
+    color: #FFD700;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.admin-panel button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-panel button:hover {
+    background: linear-gradient(45deg, #FF8E53, #FF6B6B);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.admin-panel label {
+    display: block;
+    color: #E0E0E0;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.admin-panel input,
+.admin-panel select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.9em;
+}
+
+.admin-panel input:focus,
+.admin-panel select:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .game-main {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+    }
+    
+    .leaderboard,
+    .game-info {
+        flex: 1;
+    }
+    
+    .admin-panel {
+        width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .quiz-title {
+        font-size: 1.8em;
+    }
+    
+    .canvas-wrapper {
+        padding: 15px;
+    }
+    
+    #gameCanvas {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .sidebar {
+        flex-direction: column;
+    }
+    
+    .corner-label {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2em;
+    }
+    
+    .admin-panel {
+        top: 10px;
+        right: 10px;
+        width: 200px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quiz-title {
+        font-size: 1.4em;
+    }
+    
+    .question-area h2 {
+        font-size: 1.3em;
+    }
+    
+    .controls-info {
+        font-size: 0.9em;
+    }
+    
+    .game-info .legend-item {
+        font-size: 0.8em;
+    }
+    
+    .admin-panel {
+        width: 180px;
+        font-size: 0.8em;
+    }
+}
+
+/* Animações adicionais */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.game-container > * {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Melhorias de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .quiz-title,
+    .corner-label {
+        animation: none;
+    }
+}

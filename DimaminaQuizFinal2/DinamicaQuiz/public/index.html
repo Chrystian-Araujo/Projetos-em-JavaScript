@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Quiz Interativo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login de Admin no canto superior direito -->
+    <div class="admin-login">
+        <button id="adminToggle" class="admin-toggle-btn">Admin</button>
+        <div id="adminPanel" class="admin-panel hidden">
+            <form id="adminLoginForm">
+                <label for="adminPassword">Senha:</label>
+                <input type="password" id="adminPassword" placeholder="Digite a senha" required>
+                <button type="submit">Entrar</button>
+                <button type="button" id="closeAdmin">×</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h1>Quiz Interativo</h1>
+        <p class="subtitle">Mova-se pelas áreas coloridas para responder!</p>
+        
+        <form id="loginForm">
+            <label for="name">Nome do Jogador:</label>
+            <input type="text" id="name" placeholder="Digite seu nome" required maxlength="15">
+            
+            <fieldset>
+                <legend>Escolha sua cor:</legend>
+                <div class="color-options">
+                    <label class="color-label">
+                        <input type="radio" name="color" value="#9aff16" required>
+                        <span class="color-swatch" style="background-color: #9aff16;"></span> Verde
+                    </label>
+                    <label class="color-label">
+                        <input type="radio" name="color" value="#800080">
+                        <span class="color-swatch" style="background-color: #800080;"></span> Roxo
+                    </label>
+                    <label class="color-label">
+                        <input type="radio" name="color" value="#FFD700">
+                        <span class="color-swatch" style="background-color: #FFD700;"></span> Dourado
+                    </label>
+                    <label class="color-label">
+                        <input type="radio" name="color" value="#FF1493">
+                        <span class="color-swatch" style="background-color: #FF1493;"></span> Rosa
+                    </label>
+                    <label class="color-label">
+                        <input type="radio" name="color" value="#000000">
+                        <span class="color-swatch" style="background-color: #000000;"></span> Preto
+                    </label>
+                    <label class="color-label">
+                        <input type="radio" name="color" value="#59dbd5">
+                        <span class="color-swatch" style="background-color: #59dbd5;"></span> Azul
+                    </label>
+                </div>
+            </fieldset>
+            
+            <button type="submit">Entrar no Quiz</button>
+        </form>
+        
+        <div class="instructions">
+            <h3>Como Jogar:</h3>
+            <ul>
+                <li>Use as <strong>setas do teclado</strong> para mover seu personagem</li>
+                <li>Cada canto do canvas representa uma opção de resposta (A, B, C, D)</li>
+                <li>Mova-se para o canto da resposta correta antes do tempo acabar</li>
+                <li>Ganhe pontos por cada resposta correta!</li>
+            </ul>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

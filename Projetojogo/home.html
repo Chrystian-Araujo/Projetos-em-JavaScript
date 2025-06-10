@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Adventure - Menu Inicial</title>
+    <link rel="stylesheet" href="home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="menu-container">
+        <h1>ASCII ADVENTURE</h1>
+        <div class="menu-buttons">
+            <button onclick="startGame()">Iniciar</button>
+            <button onclick="openSavedGames()">Jogos Salvos</button>
+            <button onclick="openControls()">Controles</button>
+            <button onclick="openCredits()">Créditos</button>
+        </div>
+    </div>
+
+    <!-- Painel de Controles -->
+    <div id="controls-panel" class="panel" style="display: none;">
+        <h2>Controles</h2>
+        <p>Use as seguintes teclas para jogar:</p>
+        <ul>
+            <li><strong>W, A, S, D</strong>: Mover o personagem</li>
+            <li><strong>Espaço</strong>: Atacar</li>
+            <li><strong>I</strong>: Abrir inventário</li>
+            <li><strong>Esc</strong>: Pausar o jogo</li>
+        </ul>
+        <button onclick="closeControls()">Fechar</button>
+    </div>
+
+    <!-- Painel de Créditos -->
+    <div id="credits-panel" class="panel" style="display: none;">
+        <h2>Créditos</h2>
+        <p>Desenvolvido por: [Seu Nome]</p>
+        <p>Agradecimentos: [Nomes de quem ajudou]</p>
+        <p>Ferramentas: Tiled, Phaser, Visual Studio Code</p>
+        <button onclick="closeCredits()">Fechar</button>
+    </div>
+
+    <!-- Painel de Jogos Salvos -->
+    <div id="saved-games-panel" class="panel" style="display: none;">
+        <h2>Jogos Salvos</h2>
+        <div id="saved-games-list"></div>
+        <button onclick="closeSavedGames()">Fechar</button>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>

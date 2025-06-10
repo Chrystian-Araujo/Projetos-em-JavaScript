@@ -1,0 +1,36 @@
+import json
+import os
+
+def setup_json_database():
+    database = {
+        "cores": [
+            {"nome": "azul", "valor": "#0000FF"},
+            {"nome": "vermelho", "valor": "#FF0000"},
+            {"nome": "verde", "valor": "#00FF00"},
+            {"nome": "amarelo", "valor": "#FFFF00"}
+        ],
+        "templates": [
+            {
+                "nome": "tela_basica",
+                "conteudo": "<!DOCTYPE html><html><head><title>Tela Automatizada</title><style>body {background-color: {cor}; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: white; font-family: Arial, sans-serif;} h1 {font-size: 24px;}</style></head><body><h1>Tela com fundo {nome_cor}</h1></body></html>"
+            },
+            {
+                "nome": "botao",
+                "conteudo": "<!DOCTYPE html><html><head><title>Botão Automatizado</title><style>body {background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif;} button {background-color: {cor}; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 18px; cursor: pointer;} button:hover {opacity: 0.8;}</style></head><body><button>Botão {nome_cor}</button></body></html>"
+            },
+            {
+                "nome": "caixa_texto",
+                "conteudo": "<!DOCTYPE html><html><head><title>Caixa de Texto Automatizada</title><style>body {background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif;} input[type='text'] {border: 2px solid {cor}; padding: 10px; width: 200px; font-size: 16px; border-radius: 5px;}</style></head><body><input type='text' placeholder='Caixa {nome_cor}'></body></html>"
+            }
+        ]
+    }
+    json_file = "automation_database.json"
+    if not os.path.exists(json_file):
+        with open(json_file, 'w', encoding='utf-8') as f:
+            json.dump(database, f, indent=4, ensure_ascii=False)
+        print(f"Arquivo JSON '{json_file}' criado com sucesso!")
+    else:
+        print(f"Arquivo JSON '{json_file}' já existe. Nenhuma alteração feita.")
+
+if __name__ == "__main__":
+    setup_json_database()
