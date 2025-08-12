@@ -1711,7 +1711,7 @@ document.getElementById('close-chest').addEventListener('click', closeChestMenu)
 
 // Event listener para o botão de retorno
 document.getElementById('return-btn').addEventListener('click', () => {
-    window.location.href = '../../index.html';
+    window.location.href = '../../home.html';
 });
 
 // Inicialização do jogo
